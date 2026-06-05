@@ -1,0 +1,751 @@
+/* ===== ГЛОБАЛЬНІ СТИЛІ ===== */
+/* Підключення шрифтів Google */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
+
+/* CSS-змінні */
+:root {
+  --blue: #005BBB;
+  --yellow: #FFD500;
+  --dark: #0a0a1a;
+  --light: #f5f5f0;
+  --text: #1a1a2e;
+  --accent: #FFD500;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 24px rgba(0,91,187,0.13);
+}
+
+/* Универсальный селектор */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Дочірній селектор */
+nav > ul {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+/* Базові стилі */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--light);
+  color: var(--text);
+  min-height: 100vh;
+  background-image: url('images/bg.svg');
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+/* ===== HEADER ===== */
+header {
+  background: linear-gradient(135deg, var(--blue) 60%, var(--dark) 100%);
+  color: #fff;
+  padding: 0;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 40px;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+}
+
+.header__logo-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--yellow);
+  object-fit: cover;
+  background: var(--yellow);
+}
+
+.header__title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.header__subtitle {
+  font-size: 0.8rem;
+  color: var(--yellow);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ===== NAV — горизонтальне випадаюче меню ===== */
+nav {
+  background: var(--dark);
+  border-top: 3px solid var(--yellow);
+}
+
+nav > ul {
+  padding: 0 30px;
+}
+
+nav > ul > li {
+  position: relative;
+}
+
+nav > ul > li > a {
+  display: block;
+  padding: 14px 22px;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+  border-bottom: 3px solid transparent;
+}
+
+/* Псевдоклас :hover для nav */
+nav > ul > li > a:hover {
+  background: var(--blue);
+  color: var(--yellow);
+  border-bottom: 3px solid var(--yellow);
+}
+
+/* Псевдоклас :active */
+nav > ul > li > a:active {
+  background: var(--yellow);
+  color: var(--dark);
+}
+
+/* Випадаюче підменю */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--dark);
+  min-width: 200px;
+  border: 2px solid var(--yellow);
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.dropdown li {
+  list-style: none;
+}
+
+.dropdown li a {
+  display: block;
+  padding: 11px 20px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: 'Open Sans', sans-serif;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Псевдоклас :hover для dropdown */
+.dropdown li a:hover {
+  background: var(--blue);
+  color: var(--yellow);
+  padding-left: 28px;
+}
+
+nav > ul > li:hover .dropdown {
+  display: block;
+}
+
+/* ===== LAYOUT ===== */
+.page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* ===== MAIN ===== */
+main {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 32px;
+}
+
+/* ===== ASIDE ===== */
+aside {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.aside__block {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+  border-top: 4px solid var(--blue);
+}
+
+.aside__block h3 {
+  font-family: 'Oswald', sans-serif;
+  color: var(--blue);
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== ЗАГОЛОВКИ H1-H6 ===== */
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.4rem;
+  color: var(--blue);
+  border-left: 6px solid var(--yellow);
+  padding-left: 16px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.7rem;
+  color: var(--dark);
+  margin: 28px 0 14px;
+  border-bottom: 2px solid var(--yellow);
+  padding-bottom: 6px;
+}
+
+h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.3rem;
+  color: var(--blue);
+  margin: 20px 0 10px;
+}
+
+h4 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  color: var(--dark);
+  margin: 16px 0 8px;
+}
+
+h5 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+
+h6 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 600;
+  margin: 10px 0 6px;
+}
+
+/* ===== АБЗАЦИ ===== */
+p {
+  line-height: 1.75;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+/* ===== ПОСИЛАННЯ ===== */
+a {
+  color: var(--blue);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--yellow);
+}
+
+/* Псевдоклас :visited */
+a:visited {
+  color: #7a5fb5;
+}
+
+/* ===== СПИСКИ ===== */
+ul.marked-list {
+  list-style: disc;
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+ul.marked-list li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+ol.numbered-list {
+  list-style: decimal;
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+ol.numbered-list li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Вкладений маркований у нумерований */
+ol.numbered-list ul.nested-list {
+  list-style: circle;
+  padding-left: 22px;
+  margin-top: 6px;
+}
+
+/* ===== ФОРМАТУВАННЯ ТЕКСТУ ===== */
+.text-highlight {
+  background-color: var(--yellow);
+  color: var(--dark);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.text-blue {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+/* ===== ТАБЛИЦІ ===== */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.data-table thead {
+  background: var(--blue);
+  color: #fff;
+}
+
+.data-table th {
+  padding: 13px 16px;
+  text-align: left;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
+}
+
+.data-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* Псевдоклас :nth-child для таблиці */
+.data-table tbody tr:nth-child(even) {
+  background: #f0f4ff;
+}
+
+.data-table tbody tr:hover {
+  background: #dde8ff;
+  cursor: default;
+}
+
+/* ===== КАРТИНКИ ===== */
+.img-hero {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0,91,187,0.18);
+  object-fit: cover;
+  max-height: 360px;
+}
+
+.img-player {
+  width: 100%;
+  border-radius: 8px;
+  border: 3px solid var(--blue);
+}
+
+/* ===== ARTICLE / SECTION ===== */
+article {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed #cdd8f0;
+}
+
+article:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+section {
+  margin-bottom: 24px;
+}
+
+/* ===== МІТКИ (label) ===== */
+label {
+  font-weight: 600;
+  color: var(--blue);
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.92rem;
+}
+
+/* ===== ФОРМА ===== */
+.contact-form {
+  background: #f0f4ff;
+  padding: 28px;
+  border-radius: 12px;
+  border: 2px solid var(--blue);
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #c0cfe8;
+  border-radius: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  background: #fff;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0,91,187,0.12);
+}
+
+.form-input:invalid {
+  border-color: #e05555;
+}
+
+.btn-submit {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-submit:hover {
+  background: var(--dark);
+  transform: translateY(-1px);
+}
+
+/* ===== РАМКИ / КОРДОНИ ===== */
+.bordered-box {
+  border: 2px solid var(--blue);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.dashed-box {
+  border: 2px dashed var(--yellow);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #fffbe6;
+}
+
+/* ===== КУРСОРИ ===== */
+.cursor-pointer { cursor: pointer; }
+.cursor-crosshair { cursor: crosshair; }
+.cursor-help { cursor: help; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+/* ===== IFRAME (ФРЕЙМ) ===== */
+.iframe-wrapper {
+  border: 3px solid var(--blue);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.iframe-wrapper iframe {
+  width: 100%;
+  height: 340px;
+  border: none;
+  display: block;
+}
+
+/* ===== HERO-SECTION ===== */
+.hero-section {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--dark) 100%);
+  color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '🇺🇦';
+  font-size: 120px;
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  opacity: 0.12;
+}
+
+.hero-section h1 {
+  color: var(--yellow);
+  border-left-color: #fff;
+}
+
+.hero-section p {
+  color: #c8d8f8;
+  font-size: 1.05rem;
+}
+
+/* ===== КАРТКИ ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border-top: 4px solid var(--blue);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,91,187,0.2);
+}
+
+.card__body {
+  padding: 16px;
+}
+
+.card__name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  color: var(--blue);
+  margin-bottom: 4px;
+}
+
+.card__pos {
+  font-size: 0.82rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--yellow);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--dark);
+  font-weight: 700;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--dark);
+  color: #aaa;
+  margin-top: 40px;
+  padding: 0;
+}
+
+.footer__main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px 40px 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer__col h4 {
+  color: var(--yellow);
+  font-family: 'Oswald', sans-serif;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1rem;
+}
+
+.footer__col ul {
+  list-style: none;
+}
+
+.footer__col ul li {
+  margin-bottom: 7px;
+}
+
+.footer__col ul li a {
+  color: #888;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer__col ul li a:hover {
+  color: var(--yellow);
+}
+
+.footer__bottom {
+  border-top: 1px solid #222;
+  text-align: center;
+  padding: 16px 40px;
+  font-size: 0.83rem;
+  color: #555;
+  background: #050510;
+}
+
+.footer__bottom span {
+  color: var(--yellow);
+}
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb {
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  color: #888;
+}
+
+.breadcrumb a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--yellow);
+}
+
+.breadcrumb span {
+  margin: 0 7px;
+  color: #bbb;
+}
+
+/* ===== BADGE ===== */
+.badge {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-size: 0.78rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+.badge--yellow {
+  background: var(--yellow);
+  color: var(--dark);
+}
+
+/* ===== ID-СЕЛЕКТОРИ ===== */
+#top-anchor {
+  display: block;
+  height: 0;
+}
+
+#history-section {
+  scroll-margin-top: 80px;
+}
+
+#players-section {
+  scroll-margin-top: 80px;
+}
+
+#achievements-section {
+  scroll-margin-top: 80px;
+}
+
+/* ===== ТАБЛИЦЯ ДОСЯГНЕНЬ ===== */
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, #f0f4ff, #fff);
+  border-left: 4px solid var(--yellow);
+  border-radius: 0 6px 6px 0;
+}
+
+.achievement-item .year {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  color: var(--blue);
+  min-width: 55px;
+  font-weight: 700;
+}
+
+/* ===== МОБІЛЬНА АДАПТАЦІЯ ===== */
+@media (max-width: 900px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer__main {
+    grid-template-columns: 1fr;
+    padding: 28px 20px;
+  }
+  
+  .header__top {
+    padding: 12px 16px;
+  }
+  
+  nav > ul > li > a {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+}
