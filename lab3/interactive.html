@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Інтерактивна сторінка збірної України — JavaScript ефекти.">
+  <meta name="keywords" content="javascript, анімація, збірна України, інтерактив">
+  <meta name="author" content="Фан-клуб збірної України">
+  <meta name="theme-color" content="#005BBB">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Інтерактив — Збірна України</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ====== ЗАГАЛЬНІ СТИЛІ ДЛЯ JS-СЕКЦІЙ ====== */
+    .js-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .js-section h2 {
+      margin-top: 0;
+    }
+
+    .demo-box {
+      background: #f0f4ff;
+      border: 2px solid var(--blue);
+      border-radius: 8px;
+      padding: 18px;
+      margin: 14px 0;
+    }
+
+    .btn {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 9px 22px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 4px;
+      transition: background 0.2s, transform 0.1s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn:hover { background: var(--dark); transform: translateY(-1px); }
+    .btn--yellow { background: var(--yellow); color: var(--dark); }
+    .btn--yellow:hover { background: #e6a800; }
+    .btn--sm { padding: 6px 14px; font-size: 0.85rem; }
+
+    /* ====== 1. ФУНКЦІЯ ВИВОДУ ТЕКСТУ З РІЗНИМ РОЗМІРОМ ====== */
+    #font-demo-area p {
+      margin: 4px 0;
+    }
+
+    /* ====== 2. КУЛЬКА, ЩО ПЕРЕМІЩУЄТЬСЯ ====== */
+    #moving-ball {
+      position: fixed;
+      width: 44px;
+      height: 44px;
+      background: radial-gradient(circle at 35% 35%, var(--yellow), var(--blue));
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 8888;
+      display: none;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 12px rgba(0,91,187,0.5);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: top 0.3s ease, left 0.3s ease;
+    }
+
+    /* ====== 4. ГОДИННИК ====== */
+    #clock-display {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.8rem;
+      color: var(--blue);
+      letter-spacing: 6px;
+      text-align: center;
+      padding: 20px;
+      background: var(--dark);
+      border-radius: 12px;
+      border: 3px solid var(--yellow);
+      margin: 14px 0;
+    }
+
+    #clock-date {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: -10px;
+    }
+
+    /* ====== 5. ЕФЕКТ ВИТИРАННЯ ====== */
+    #fade-target {
+      padding: 20px;
+      background: linear-gradient(135deg, var(--blue), var(--dark));
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.4rem;
+      text-align: center;
+      letter-spacing: 2px;
+      transition: opacity 0.05s;
+    }
+
+    /* ====== СПЛИВАЮЧА ПІДКАЗКА ====== */
+    #tooltip-trigger {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      position: relative;
+      user-select: none;
+    }
+
+    #tooltip-box {
+      display: none;
+      position: fixed;
+      background: var(--dark);
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 2px solid var(--yellow);
+      max-width: 260px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      z-index: 9999;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+    }
+
+    #tooltip-box::before {
+      content: '⚽ Підказка';
+      display: block;
+      font-family: 'Oswald', sans-serif;
+      color: var(--yellow);
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    /* ====== 9. СОРТУВАННЯ ====== */
+    .player-cards-sort {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .player-sort-card {
+      background: #f0f4ff;
+      border-radius: 8px;
+      padding: 12px;
+      border-left: 3px solid var(--blue);
+      font-size: 0.9rem;
+    }
+
+    .player-sort-card strong {
+      font-family: 'Oswald', sans-serif;
+      display: block;
+      color: var(--blue);
+    }
+
+    /* ====== 5b. РОЗМІР ТЕКСТУ (cookie) ====== */
+    #font-size-demo {
+      padding: 16px;
+      border: 2px solid #c0cfe8;
+      border-radius: 8px;
+      background: #fff;
+      line-height: 1.7;
+    }
+
+    .size-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .size-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--blue);
+      background: #fff;
+      color: var(--blue);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-weight: 700;
+    }
+
+    .size-btn:hover { background: var(--blue); color: #fff; }
+
+    #current-size-label {
+      font-family: 'Oswald', sans-serif;
+      color: var(--blue);
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+<span id="top-anchor"></span>
+
+<!-- Рухома кулька -->
+<div id="moving-ball">⚽</div>
+
+<!-- Спливаюча підказка -->
+<div id="tooltip-box">
+  Збірна України заснована у 1991 році. Найкращий результат на ЧС — чвертьфінал 2006 в Німеччині!
+</div>
+
+<header class="header">
+  <div class="header__top">
+    <a href="index.html" class="header__logo">
+      <div class="header__logo-img">🇺🇦</div>
+      <div>
+        <div class="header__title">Збірна України</div>
+        <div class="header__subtitle">Офіційний фан-сайт</div>
+      </div>
+    </a>
+    <div class="header__slogan">⚽ СЛАВА УКРАЇНІ!</div>
+  </div>
+  <nav class="nav">
+    <ul class="nav__list">
+      <li class="nav__item"><a href="index.html" class="nav__link">Головна</a></li>
+      <li class="nav__item"><a href="players.html" class="nav__link">Гравці ▾</a>
+        <ul class="nav__dropdown">
+          <li><a href="players.html#forwards" class="nav__dropdown-link">Нападники</a></li>
+          <li><a href="players.html#defenders" class="nav__dropdown-link">Захисники</a></li>
+        </ul>
+      </li>
+      <li class="nav__item"><a href="history.html" class="nav__link">Історія ▾</a>
+        <ul class="nav__dropdown">
+          <li><a href="history.html#achievements-section" class="nav__dropdown-link">Досягнення</a></li>
+        </ul>
+      </li>
+      <li class="nav__item"><a href="schedule.html" class="nav__link">Розклад</a></li>
+      <li class="nav__item"><a href="interactive.html" class="nav__link nav__link--active">Інтерактив ▾</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html" class="breadcrumb__link">🏠 Головна</a>
+    <span class="breadcrumb__sep">›</span>
+    <strong>Інтерактивна сторінка</strong>
+  </div>
+
+  <div class="hero">
+    <div class="hero__badge">JavaScript</div>
+    <h1 style="color:var(--yellow);font-family:'Oswald',sans-serif;font-size:2rem;border-left:6px solid #fff;padding-left:16px;margin-bottom:12px;">Інтерактивна сторінка</h1>
+    <p style="color:#c8d8f8;">Демонстрація JavaScript можливостей на тематиці збірної України.</p>
+  </div>
+
+  <!-- ===== 1. Функція виводу тексту з різним шрифтом ===== -->
+  <div class="js-section">
+    <h2>1. Вивід тексту з різним розміром шрифту</h2>
+    <p>Функція <code>printText(text, size)</code> виводить текст із заданим розміром:</p>
+    <div class="demo-box">
+      <div id="font-demo-area"></div>
+    </div>
+    <button class="btn" onclick="demoFontSizes()">▶ Запустити демо</button>
+    <button class="btn btn--yellow" onclick="document.getElementById('font-demo-area').innerHTML=''">✕ Очистити</button>
+  </div>
+
+  <!-- ===== 2. Картинка, що виникає в новому місці ===== -->
+  <div class="js-section">
+    <h2>2. М'яч, що виникає в новому місці щосекунди</h2>
+    <p>Кожну секунду ⚽ з'являється у новому випадковому місці екрана (використовується <code>setInterval</code>).</p>
+    <div class="demo-box">
+      <p id="ball-status" style="color:#888;font-size:0.9rem;">Натисніть кнопку для запуску</p>
+    </div>
+    <button class="btn" id="ball-start-btn" onclick="startBall()">▶ Запустити м'яч</button>
+    <button class="btn btn--yellow" onclick="stopBall()">⏹ Зупинити</button>
+  </div>
+
+  <!-- ===== 3. Знайти всі <p> і змінити розмір ===== -->
+  <div class="js-section">
+    <h2>3. Змінити розмір всіх абзаців на сторінці</h2>
+    <p>Знаходимо всі <code>&lt;p&gt;</code> через <code>getElementsByTagName</code> і встановлюємо <code>fontSize = 15px</code>.</p>
+    <div class="demo-box">
+      <p>Це тестовий абзац про збірну України.</p>
+      <p>Ще один абзац для демонстрації. <strong>Розмір тексту зміниться.</strong></p>
+      <p>І третій абзац. Натисніть кнопку — всі зміняться.</p>
+    </div>
+    <button class="btn" onclick="changeAllParagraphs()">✎ Встановити 15px для всіх &lt;p&gt;</button>
+    <button class="btn btn--yellow" onclick="resetAllParagraphs()">↺ Скинути</button>
+    <p id="p-count-result" style="margin-top:10px;color:var(--blue);font-weight:700;"></p>
+  </div>
+
+  <!-- ===== 4. Текстовий годинник ===== -->
+  <div class="js-section">
+    <h2>4. Текстовий годинник</h2>
+    <p>Живий годинник із використанням <code>setInterval</code>:</p>
+    <div id="clock-display">00:00:00</div>
+    <div id="clock-date"></div>
+  </div>
+
+  <!-- ===== 5. Ефект поступового витирання ===== -->
+  <div class="js-section">
+    <h2>5. Ефект поступового витирання</h2>
+    <p>Блок поступово зникає або з'являється за допомогою таймера:</p>
+    <div id="fade-target">🇺🇦 СЛАВА УКРАЇНІ! ГЕРОЯМ СЛАВА! 🇺🇦</div>
+    <div style="margin-top:12px;">
+      <button class="btn" onclick="fadeOut()">⬇ Витерти</button>
+      <button class="btn btn--yellow" onclick="fadeIn()">⬆ Відновити</button>
+    </div>
+  </div>
+
+  <!-- ===== 6. Спливаюча підказка ===== -->
+  <div class="js-section">
+    <h2>6. Спливаюча підказка (сама визначає напрям)</h2>
+    <p>Натисніть на кнопку — підказка з'явиться у правильному напрямку, щоб не вийти за межі екрана. Клік деінде — закриє.</p>
+    <div class="demo-box" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <span id="tooltip-trigger" onclick="showTooltip(event)">ℹ️ Факт про збірну</span>
+      <span style="color:#888;font-size:0.88rem;">(спробуйте і в кутках екрана)</span>
+    </div>
+  </div>
+
+  <!-- ===== 9. Сортування масиву ===== -->
+  <div class="js-section">
+    <h2>9. Сортування гравців за зростанням</h2>
+    <p>Функції <code>sortByName</code> та <code>sortByHeight</code>. Запускається <code>sortByHeight</code> (за зростанням):</p>
+    <div class="demo-box">
+      <div id="players-sort-area">
+        <p style="color:#888;">Натисніть кнопку для сортування</p>
+      </div>
+    </div>
+    <button class="btn" onclick="runSortByHeight()">↕ Сортувати за зростанням</button>
+    <button class="btn btn--yellow" onclick="runSortByName()">🔤 Сортувати за ім'ям</button>
+  </div>
+
+  <!-- ===== 5b. Розмір тексту + cookie ===== -->
+  <div class="js-section">
+    <h2>5b. Розмір тексту (зберігається у Cookie)</h2>
+    <p>Зміна розміру тексту кнопками <strong>A+</strong> / <strong>A−</strong>. Вибір зберігається в cookie і відновлюється при наступному відкритті сторінки.</p>
+    <div class="size-controls">
+      <button class="size-btn" onclick="changeFontSize(-2)">A−</button>
+      <span id="current-size-label">16px</span>
+      <button class="size-btn" onclick="changeFontSize(+2)">A+</button>
+    </div>
+    <div id="font-size-demo">
+      <p>🇺🇦 <strong>Збірна України</strong> — наша гордість і надія! Гравці виходять на поле, щоб захищати честь нашої держави у кожному матчі. Слава Україні — Героям Слава!</p>
+      <p>Андрій Шевченко — найкращий бомбардир в <em>історії збірної</em>. 111 матчів, 48 голів.</p>
+    </div>
+    <p id="cookie-status" style="font-size:0.85rem;color:#888;margin-top:8px;"></p>
+  </div>
+
+  <!-- ===== 10. Заборона перегляду HTML ===== -->
+  <div class="js-section">
+    <h2>10. Заборона перегляду коду сторінки</h2>
+    <p>Реалізована заборона через JavaScript (відключення контекстного меню та гарячих клавіш).</p>
+    <div class="demo-box" id="protected-area">
+      <p>⚠️ Правий клік та Ctrl+U вимкнені на цій сторінці.</p>
+      <p style="color:var(--blue);font-weight:700;">Як обійти: відкрити DevTools (F12) або переглянути через <code>view-source:</code> у браузері безпосередньо.</p>
+    </div>
+    <button class="btn" onclick="toggleProtection()">🔒 Увімкнути / вимкнути захист</button>
+    <p id="protection-status" style="margin-top:8px;color:var(--blue);font-weight:700;"></p>
+  </div>
+
+  <p style="text-align:center;margin-top:20px;">
+    <a href="#top-anchor">↑ Вверх</a> &nbsp;|&nbsp;
+    <a href="index.html">← На головну</a>
+  </p>
+</div>
+
+<a href="#top-anchor" class="fixed-flag" title="Вгору">🇺🇦</a>
+
+<footer class="footer">
+  <div class="footer__main">
+    <div class="footer__col">
+      <h4 class="footer__col-title">🇺🇦 Збірна України</h4>
+      <p style="font-size:0.88rem;">Офіційний фан-сайт.</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Навігація</h4>
+      <ul class="footer__list">
+        <li class="footer__list-item"><a href="index.html" class="footer__list-link">Головна</a></li>
+        <li class="footer__list-item"><a href="players.html" class="footer__list-link">Гравці</a></li>
+        <li class="footer__list-item"><a href="history.html" class="footer__list-link">Історія</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Ресурси</h4>
+      <ul class="footer__list">
+        <li class="footer__list-item"><a href="https://ffu.ua" target="_blank" class="footer__list-link">ФФУ</a></li>
+        <li class="footer__list-item"><a href="https://www.uefa.com" target="_blank" class="footer__list-link">UEFA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    &copy; 2024 <span class="footer__copy-highlight">Збірна України — Офіційний фан-сайт</span>. Слава Україні! 🇺🇦
+  </div>
+</footer>
+
+<script>
+// ============================================================
+//  1. ФУНКЦІЯ ВИВОДУ ТЕКСТУ З РІЗНИМ РОЗМІРОМ ШРИФТУ
+// ============================================================
+function printText(text, size) {
+  var area = document.getElementById('font-demo-area');
+  var p = document.createElement('p');
+  p.style.fontSize = size + 'px';
+  p.textContent = text;
+  area.appendChild(p);
+}
+
+function demoFontSizes() {
+  document.getElementById('font-demo-area').innerHTML = '';
+  printText('🇺🇦 Збірна України — H1 (32px)', 32);
+  printText('⚽ Слава Україні! — H2 (26px)', 26);
+  printText('Андрій Шевченко — H3 (20px)', 20);
+  printText('Чвертьфінал ЧС-2006 — H4 (16px)', 16);
+  printText('Рекорд: 111 матчів — H5 (13px)', 13);
+  printText('1991 — рік заснування — H6 (11px)', 11);
+}
+
+// ============================================================
+//  2. КАРТИНКА (М'ЯЧ), ЩО ПЕРЕМІЩУЄТЬСЯ (setInterval)
+// ============================================================
+var ballInterval = null;
+var ballEl = document.getElementById('moving-ball');
+
+function startBall() {
+  if (ballInterval) return;
+  ballEl.style.display = 'flex';
+  ballEl.style.position = 'fixed';
+  var status = document.getElementById('ball-status');
+  if (status) status.textContent = '⚽ М\'яч рухається! Подивіться на екран...';
+  
+  ballInterval = setInterval(function() {
+    var maxX = window.innerWidth - 60;
+    var maxY = window.innerHeight - 60;
+    var x = Math.floor(Math.random() * maxX);
+    var y = Math.floor(Math.random() * maxY);
+    ballEl.style.left = x + 'px';
+    ballEl.style.top = y + 'px';
+  }, 1000);
+}
+
+function stopBall() {
+  if (ballInterval) {
+    clearInterval(ballInterval);
+    ballInterval = null;
+    ballEl.style.display = 'none';
+    var status = document.getElementById('ball-status');
+    if (status) status.textContent = 'М\'яч зупинено.';
+  }
+}
+
+// ============================================================
+//  3. ЗНАЙТИ ВСІ <p> І ЗМІНИТИ РОЗМІР (getElementsByTagName + setAttribute)
+// ============================================================
+var origSizes = [];
+
+function changeAllParagraphs() {
+  var paragraphs = document.getElementsByTagName('p');
+  origSizes = [];
+  for (var i = 0; i < paragraphs.length; i++) {
+    origSizes.push(paragraphs[i].style.fontSize || '');
+    paragraphs[i].setAttribute('style', (paragraphs[i].getAttribute('style') || '') + '; font-size: 15px !important');
+  }
+  document.getElementById('p-count-result').textContent =
+    '✅ Змінено ' + paragraphs.length + ' абзаців на 15px (getElementsByTagName + setAttribute)';
+}
+
+function resetAllParagraphs() {
+  var paragraphs = document.getElementsByTagName('p');
+  for (var i = 0; i < paragraphs.length; i++) {
+    var style = (paragraphs[i].getAttribute('style') || '')
+      .replace(/;\s*font-size:\s*15px\s*!important/g, '');
+    paragraphs[i].setAttribute('style', style);
+  }
+  document.getElementById('p-count-result').textContent = '↺ Розміри скинуто.';
+}
+
+// ============================================================
+//  4. ТЕКСТОВИЙ ГОДИННИК (setInterval / setTimeout)
+// ============================================================
+function updateClock() {
+  var now = new Date();
+  var h = String(now.getHours()).padStart(2, '0');
+  var m = String(now.getMinutes()).padStart(2, '0');
+  var s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById('clock-display').textContent = h + ':' + m + ':' + s;
+
+  var days = ['Неділя','Понеділок','Вівторок','Середа','Четвер','П\'ятниця','Субота'];
+  var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+  var dateEl = document.getElementById('clock-date');
+  if (dateEl) {
+    dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + '.' + months[now.getMonth()] + '.' + now.getFullYear();
+  }
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ============================================================
+//  5. ЕФЕКТ ПОСТУПОВОГО ВИТИРАННЯ (таймер)
+// ============================================================
+var fadeTimer = null;
+
+function fadeOut() {
+  clearInterval(fadeTimer);
+  var el = document.getElementById('fade-target');
+  var op = parseFloat(el.style.opacity) || 1;
+  fadeTimer = setInterval(function() {
+    if (op <= 0) {
+      clearInterval(fadeTimer);
+      op = 0;
+    } else {
+      op -= 0.05;
+    }
+    el.style.opacity = op;
+  }, 50);
+}
+
+function fadeIn() {
+  clearInterval(fadeTimer);
+  var el = document.getElementById('fade-target');
+  var op = parseFloat(el.style.opacity) || 0;
+  fadeTimer = setInterval(function() {
+    if (op >= 1) {
+      clearInterval(fadeTimer);
+      op = 1;
+    } else {
+      op += 0.05;
+    }
+    el.style.opacity = op;
+  }, 50);
+}
+
+// ============================================================
+//  6. СПЛИВАЮЧА ПІДКАЗКА (визначає напрям, закривається кліком)
+// ============================================================
+var tooltipVisible = false;
+
+function showTooltip(e) {
+  e.stopPropagation();
+  var tip = document.getElementById('tooltip-box');
+  tip.style.display = 'block';
+  tooltipVisible = true;
+
+  // Позиція: перевіряємо, чи влазить праворуч/знизу
+  var tipW = 270;
+  var tipH = 110;
+  var x = e.clientX + 12;
+  var y = e.clientY + 12;
+
+  if (x + tipW > window.innerWidth - 10) x = e.clientX - tipW - 12;
+  if (y + tipH > window.innerHeight - 10) y = e.clientY - tipH - 12;
+  if (x < 10) x = 10;
+  if (y < 10) y = 10;
+
+  tip.style.left = x + 'px';
+  tip.style.top = y + 'px';
+}
+
+document.addEventListener('click', function(e) {
+  if (tooltipVisible) {
+    var tip = document.getElementById('tooltip-box');
+    if (e.target !== tip && !tip.contains(e.target) && e.target.id !== 'tooltip-trigger') {
+      tip.style.display = 'none';
+      tooltipVisible = false;
+    }
+  }
+});
+
+// ============================================================
+//  9. СОРТУВАННЯ: sortByName і sortByHeight
+// ============================================================
+var players = [
+  { name: 'Михайло Мудрик', height: 175, pos: 'Нападник', club: 'Челсі' },
+  { name: 'Артем Довбик',   height: 191, pos: 'Нападник', club: 'Рома' },
+  { name: 'Олександр Зінченко', height: 175, pos: 'Захисник', club: 'Арсенал' },
+  { name: 'Андрій Лунін',   height: 190, pos: 'Воротар',  club: 'Реал Мадрид' },
+  { name: 'Ілля Забарний',  height: 192, pos: 'Захисник', club: 'Борнмут' },
+  { name: 'Євген Шахов',    height: 178, pos: 'Півзахисник', club: 'Паок' },
+];
+
+function sortByName(arr) {
+  return arr.slice().sort(function(a, b) {
+    return a.name.localeCompare(b.name, 'uk');
+  });
+}
+
+function sortByHeight(arr) {
+  return arr.slice().sort(function(a, b) {
+    return a.height - b.height;
+  });
+}
+
+function renderPlayers(arr, label) {
+  var area = document.getElementById('players-sort-area');
+  var html = '<p style="color:var(--blue);font-weight:700;margin-bottom:10px;">Сортування: ' + label + '</p>';
+  html += '<div class="player-cards-sort">';
+  arr.forEach(function(p, i) {
+    html += '<div class="player-sort-card">';
+    html += '<strong>' + (i+1) + '. ' + p.name + '</strong>';
+    html += '<span style="color:#888;font-size:0.82rem;">' + p.pos + ' | ' + p.club + '</span>';
+    html += '<span style="color:var(--blue);font-weight:700;font-size:0.95rem;">↑ ' + p.height + ' см</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  area.innerHTML = html;
+}
+
+function runSortByHeight() {
+  // Викликається тільки функція сортування по зростанню (за завданням)
+  var sorted = sortByHeight(players);
+  renderPlayers(sorted, 'за зростанням (sortByHeight)');
+}
+
+function runSortByName() {
+  var sorted = sortByName(players);
+  renderPlayers(sorted, 'за ім\'ям (sortByName)');
+}
+
+// Відразу запустити сортування по зростанню (за завданням)
+runSortByHeight();
+
+// ============================================================
+//  5b. РОЗМІР ТЕКСТУ + COOKIE
+// ============================================================
+function getCookie(name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+
+function setCookie(name, value, days) {
+  var exp = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + exp + '; path=/';
+}
+
+var currentFontSize = parseInt(getCookie('ukraineSiteFS')) || 16;
+
+function applyFontSize(size) {
+  currentFontSize = Math.max(10, Math.min(28, size));
+  document.getElementById('font-size-demo').style.fontSize = currentFontSize + 'px';
+  document.getElementById('current-size-label').textContent = currentFontSize + 'px';
+  setCookie('ukraineSiteFS', currentFontSize, 30);
+  document.getElementById('cookie-status').textContent =
+    '✅ Збережено в cookie: ukraineSiteFS=' + currentFontSize + 'px (діє 30 днів)';
+}
+
+function changeFontSize(delta) {
+  applyFontSize(currentFontSize + delta);
+}
+
+// Відновити розмір із cookie при завантаженні
+applyFontSize(currentFontSize);
+
+// ============================================================
+//  10. ЗАБОРОНА ПЕРЕГЛЯДУ HTML
+// ============================================================
+var protectionEnabled = false;
+
+function blockContextMenu(e) { e.preventDefault(); return false; }
+function blockKeys(e) {
+  // Ctrl+U, Ctrl+S, F12, Ctrl+Shift+I
+  if ((e.ctrlKey && (e.key === 'u' || e.key === 's')) ||
+       e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+    e.preventDefault();
+    return false;
+  }
+}
+
+function toggleProtection() {
+  var status = document.getElementById('protection-status');
+  if (!protectionEnabled) {
+    document.addEventListener('contextmenu', blockContextMenu);
+    document.addEventListener('keydown', blockKeys);
+    protectionEnabled = true;
+    status.textContent = '🔒 Захист увімкнено (ПКМ та Ctrl+U заблоковані)';
+  } else {
+    document.removeEventListener('contextmenu', blockContextMenu);
+    document.removeEventListener('keydown', blockKeys);
+    protectionEnabled = false;
+    status.textContent = '🔓 Захист вимкнено';
+  }
+}
+// Захист увімкнений за замовчуванням
+toggleProtection();
+</script>
+</body>
+</html>

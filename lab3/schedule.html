@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Розклад матчів збірної України — CSS Grid Layout демонстрація.">
+  <meta name="keywords" content="розклад, матчі, збірна України, сітка">
+  <meta name="author" content="Фан-клуб збірної України">
+  <meta name="theme-color" content="#005BBB">
+  <meta property="og:title" content="Розклад матчів — Збірна України">
+  <meta property="og:type" content="website">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Розклад — Збірна України</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+  
+
+    /* Сітка розкладу — структура задана викладачем */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto auto auto auto;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    /* Ряд 1: 2 блоки по 6 колонок */
+    .schedule-grid__item--r1-a { grid-column: 1 / 7; }
+    .schedule-grid__item--r1-b { grid-column: 7 / 13; }
+
+    /* Ряд 2: 1 блок 8 колонок + 2 блоки по 2 */
+    .schedule-grid__item--r2-main { grid-column: 1 / 9; }
+    .schedule-grid__item--r2-b    { grid-column: 9 / 11; }
+    .schedule-grid__item--r2-c    { grid-column: 11 / 13; }
+
+    /* Ряд 3: 1 блок на весь рядок */
+    .schedule-grid__item--r3 { grid-column: 1 / 13; }
+
+    /* Ряд 4: 1 блок на весь рядок */
+    .schedule-grid__item--r4 { grid-column: 1 / 13; }
+
+    /* Стиль блоків */
+    .schedule-block {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      border-left: 4px solid var(--blue);
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .schedule-block--yellow { border-left-color: var(--yellow); }
+    .schedule-block--green  { border-left-color: #28a745; }
+    .schedule-block--red    { border-left-color: #dc3545; }
+
+    .schedule-block__title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .schedule-block__date {
+      font-size: 0.82rem;
+      color: #888;
+      font-weight: 600;
+    }
+
+    .schedule-block__teams {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .schedule-block__score {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.4rem;
+      color: var(--blue);
+    }
+
+    .schedule-block__info {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* === МЕДІАЗАПИТИ === */
+
+    /* md — перший ряд: 2 блоки по 5 колонок (з 2 вільними) */
+    @media (max-width: 900px) {
+      .schedule-grid__item--r1-a { grid-column: 1 / 6; }
+      .schedule-grid__item--r1-b { grid-column: 6 / 11; }
+
+      .schedule-grid__item--r2-main { grid-column: 1 / 9; }
+      .schedule-grid__item--r2-b    { grid-column: 9 / 11; }
+      .schedule-grid__item--r2-c    { grid-column: 11 / 13; }
+    }
+
+    /* sm — другий ряд: зникає 3-ій блок */
+    @media (max-width: 700px) {
+      .schedule-grid__item--r1-a { grid-column: 1 / 7; }
+      .schedule-grid__item--r1-b { grid-column: 7 / 13; }
+
+      .schedule-grid__item--r2-main { grid-column: 1 / 9; }
+      .schedule-grid__item--r2-b    { grid-column: 9 / 13; }
+      .schedule-grid__item--r2-c    { display: none; } /* зникає 3-ій блок ряду 2 */
+
+      .schedule-grid__item--r3 { grid-column: 1 / 13; }
+      .schedule-grid__item--r4 { grid-column: 1 / 13; }
+    }
+
+    /* xs — блоки з 2-го і 4-го ряду міняються місцями */
+    @media (max-width: 480px) {
+      .schedule-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      /* Скидаємо всі колонки */
+      .schedule-grid__item--r1-a,
+      .schedule-grid__item--r1-b,
+      .schedule-grid__item--r2-main,
+      .schedule-grid__item--r2-b,
+      .schedule-grid__item--r2-c,
+      .schedule-grid__item--r3,
+      .schedule-grid__item--r4 {
+        grid-column: 1 / -1;
+      }
+
+      /* Блоки 2-го ряду міняються місцями з 4-м рядом через order */
+      .schedule-grid__item--r1-a    { order: 1; }
+      .schedule-grid__item--r1-b    { order: 2; }
+      .schedule-grid__item--r4      { order: 3; } /* 4-й ряд тепер вище 2-го */
+      .schedule-grid__item--r2-main { order: 4; }
+      .schedule-grid__item--r2-b    { order: 5; }
+      .schedule-grid__item--r2-c    { display: none; }
+      .schedule-grid__item--r3      { order: 6; }
+    }
+
+    /* Підказка для поточного брейкпоінту */
+    .breakpoint-badge {
+      position: fixed;
+      top: 80px;
+      left: 12px;
+      background: var(--dark);
+      color: var(--yellow);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 4px;
+      z-index: 9998;
+      border: 1px solid var(--yellow);
+      pointer-events: none;
+    }
+
+    /* Статистика в рядку 3 */
+    .stats-table-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .stats-table-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-mini {
+      text-align: center;
+      padding: 12px;
+      background: #f0f4ff;
+      border-radius: 8px;
+    }
+
+    .stat-mini__num {
+      display: block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .stat-mini__lbl {
+      font-size: 0.78rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<span id="top-anchor"></span>
+
+<header class="header">
+  <div class="header__top">
+    <a href="index.html" class="header__logo">
+      <div class="header__logo-img">🇺🇦</div>
+      <div>
+        <div class="header__title">Збірна України</div>
+        <div class="header__subtitle">Офіційний фан-сайт</div>
+      </div>
+    </a>
+    <div class="header__slogan">⚽ СЛАВА УКРАЇНІ!</div>
+  </div>
+  <nav class="nav">
+    <ul class="nav__list">
+      <li class="nav__item"><a href="index.html" class="nav__link">Головна</a></li>
+      <li class="nav__item">
+        <a href="players.html" class="nav__link">Гравці ▾</a>
+        <ul class="nav__dropdown">
+          <li><a href="players.html#forwards" class="nav__dropdown-link">Нападники</a></li>
+          <li><a href="players.html#midfielders" class="nav__dropdown-link">Півзахисники</a></li>
+          <li><a href="players.html#defenders" class="nav__dropdown-link">Захисники</a></li>
+          <li><a href="players.html#goalkeepers" class="nav__dropdown-link">Воротарі</a></li>
+        </ul>
+      </li>
+      <li class="nav__item">
+        <a href="history.html" class="nav__link">Історія ▾</a>
+        <ul class="nav__dropdown">
+          <li><a href="history.html#achievements-section" class="nav__dropdown-link">Досягнення</a></li>
+          <li><a href="history.html#history-section" class="nav__dropdown-link">Хронологія</a></li>
+        </ul>
+      </li>
+      <li class="nav__item"><a href="schedule.html" class="nav__link nav__link--active">Розклад ▾</a></li>
+      <li class="nav__item"><a href="index.html#contact-section" class="nav__link">Контакти</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Підказка брейкпоінту (динамічно через JS) -->
+<div class="breakpoint-badge" id="bp-badge">xl</div>
+
+<div class="page-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html" class="breadcrumb__link">🏠 Головна</a>
+    <span class="breadcrumb__sep">›</span>
+    <strong>Розклад матчів</strong>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero__badge">CSS Grid Layout</div>
+    <h1 class="hero__title" style="color:var(--yellow);">Розклад та Результати</h1>
+    <p class="hero__text">Усі матчі збірної України — майбутні та минулі. Сторінка демонструє адаптивний CSS Grid Layout.</p>
+  </div>
+
+  <!-- ===== CSS GRID LAYOUT ===== -->
+  <div class="schedule-grid">
+
+    <!-- РЯД 1: 2 блоки -->
+    <div class="schedule-block schedule-grid__item--r1-a">
+      <span class="schedule-block__title">🟡 Наступний матч</span>
+      <span class="schedule-block__date">📅 Жовтень 2025</span>
+      <span class="schedule-block__teams">🇺🇦 Україна vs Чехія 🇨🇿</span>
+      <span class="schedule-block__info">Кваліфікація ЧС-2026 | НСК Олімпійський, Київ | 20:45</span>
+    </div>
+
+    <div class="schedule-block schedule-block--yellow schedule-grid__item--r1-b">
+      <span class="schedule-block__title">📊 Позиція в групі</span>
+      <span class="schedule-block__date">Група C | Кваліфікація ЧС-2026</span>
+      <span class="schedule-block__teams">🇺🇦 Україна — 2-ге місце</span>
+      <span class="schedule-block__info">4 матчі | 3П 1Н 0П | 10 очок</span>
+    </div>
+
+    <!-- РЯД 2: 1 великий + 2 малих -->
+    <div class="schedule-block schedule-block--green schedule-grid__item--r2-main">
+      <span class="schedule-block__title">🏆 Останні матчі</span>
+      <table class="data-table" style="margin:8px 0;">
+        <thead>
+          <tr><th>Дата</th><th>Суперник</th><th>Рахунок</th><th>Результат</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>08.09.25</td>
+            <td>🇷🇴 Румунія</td>
+            <td><strong>2:1</strong></td>
+            <td><span class="badge badge--yellow">П</span></td>
+          </tr>
+          <tr>
+            <td>05.09.25</td>
+            <td>🇫🇮 Фінляндія</td>
+            <td><strong>3:0</strong></td>
+            <td><span class="badge badge--yellow">П</span></td>
+          </tr>
+          <tr>
+            <td>10.06.25</td>
+            <td>🇸🇰 Словаччина</td>
+            <td><strong>1:1</strong></td>
+            <td><span class="badge">Н</span></td>
+          </tr>
+          <tr>
+            <td>07.06.25</td>
+            <td>🇧🇾 Білорусь</td>
+            <td><strong>4:0</strong></td>
+            <td><span class="badge badge--yellow">П</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schedule-block schedule-block--yellow schedule-grid__item--r2-b">
+      <span class="schedule-block__title">⚽ Голи</span>
+      <span class="schedule-block__score">+10</span>
+      <span class="schedule-block__info">У поточній кваліфікації</span>
+    </div>
+
+    <div class="schedule-block schedule-block--red schedule-grid__item--r2-c">
+      <span class="schedule-block__title">🛡️ Пропущ.</span>
+      <span class="schedule-block__score">−2</span>
+      <span class="schedule-block__info">Надійна оборона</span>
+    </div>
+
+    <!-- РЯД 3: 1 блок -->
+    <div class="schedule-block schedule-grid__item--r3">
+      <span class="schedule-block__title">📈 Сезонна статистика</span>
+      <div class="stats-table-grid" style="margin-top:12px;">
+        <div class="stat-mini"><span class="stat-mini__num">10</span><span class="stat-mini__lbl">Очків</span></div>
+        <div class="stat-mini"><span class="stat-mini__num">+8</span><span class="stat-mini__lbl">Різниця</span></div>
+        <div class="stat-mini"><span class="stat-mini__num">3</span><span class="stat-mini__lbl">Перемог</span></div>
+        <div class="stat-mini"><span class="stat-mini__num">67%</span><span class="stat-mini__lbl">Успіх</span></div>
+      </div>
+    </div>
+
+    <!-- РЯД 4: 1 блок -->
+    <div class="schedule-block schedule-block--yellow schedule-grid__item--r4">
+      <span class="schedule-block__title">📅 Повний розклад 2025/26</span>
+      <table class="data-table" style="margin:8px 0;">
+        <thead>
+          <tr><th>Дата</th><th>Суперник</th><th>Турнір</th><th>Місце</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Жовт. 2025</td><td>🇨🇿 Чехія</td><td>ЧС-2026 Кваліф.</td><td>Київ</td>
+          </tr>
+          <tr>
+            <td>Листоп. 2025</td><td>🇷🇴 Румунія</td><td>ЧС-2026 Кваліф.</td><td>Виїзд</td>
+          </tr>
+          <tr>
+            <td>Берез. 2026</td><td>ТБД</td><td>Товариський</td><td>ТБД</td>
+          </tr>
+          <tr>
+            <td>Черв. 2026</td><td>ТБД</td><td>ЧС-2026</td><td>США/Мексика</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /schedule-grid -->
+
+  <p style="text-align:center;margin-top:20px;">
+    <a href="#top-anchor">↑ Вверх</a>
+    &nbsp;|&nbsp;
+    <a href="index.html">← На головну</a>
+    &nbsp;|&nbsp;
+    <a href="history.html">Історія →</a>
+  </p>
+</div>
+
+<!-- FIXED елемент, що деформується при hover -->
+<a href="#top-anchor" class="fixed-flag" title="Вгору">🇺🇦</a>
+
+<footer class="footer">
+  <div class="footer__main">
+    <div class="footer__col">
+      <h4 class="footer__col-title">🇺🇦 Збірна України</h4>
+      <p style="font-size:0.88rem;line-height:1.6;">Офіційний фан-сайт збірної.</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Навігація</h4>
+      <ul class="footer__list">
+        <li class="footer__list-item"><a href="index.html" class="footer__list-link">Головна</a></li>
+        <li class="footer__list-item"><a href="players.html" class="footer__list-link">Гравці</a></li>
+        <li class="footer__list-item"><a href="history.html" class="footer__list-link">Історія</a></li>
+        <li class="footer__list-item"><a href="schedule.html" class="footer__list-link">Розклад</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Ресурси</h4>
+      <ul class="footer__list">
+        <li class="footer__list-item"><a href="https://ffu.ua" target="_blank" class="footer__list-link">ФФУ</a></li>
+        <li class="footer__list-item"><a href="https://www.uefa.com" target="_blank" class="footer__list-link">UEFA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    &copy; 2024 <span class="footer__copy-highlight">Збірна України — Офіційний фан-сайт</span>. Слава Україні! 🇺🇦
+  </div>
+</footer>
+
+<script>
+  // Показуємо поточний брейкпоінт
+  function updateBP() {
+    const w = window.innerWidth;
+    const el = document.getElementById('bp-badge');
+    if (!el) return;
+    if (w <= 480) el.textContent = 'xs (' + w + 'px)';
+    else if (w <= 700) el.textContent = 'sm (' + w + 'px)';
+    else if (w <= 900) el.textContent = 'md (' + w + 'px)';
+    else el.textContent = 'xl (' + w + 'px)';
+  }
+  updateBP();
+  window.addEventListener('resize', updateBP);
+</script>
+</body>
+</html>
