@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bootstrap сітка — збірна України.">
+  <meta name="keywords" content="bootstrap, grid, збірна України, адаптивний">
+  <meta name="author" content="Фан-клуб збірної України">
+  <meta name="theme-color" content="#005BBB">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Сітка Bootstrap — Збірна України</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+   
+    body {
+      background: var(--light);
+      background-image: url('images/bg.svg');
+    }
+
+    /* Bootstrap блоки — базовий стиль */
+    .grid-block {
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 16px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .grid-block:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,91,187,0.22);
+    }
+
+    .grid-block__title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .grid-block__text {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Кольорові варіанти блоків */
+    .gb--blue {
+      background: linear-gradient(135deg, #005BBB, #003d80);
+      color: #fff;
+      border-left: 5px solid var(--yellow);
+    }
+
+    .gb--yellow {
+      background: linear-gradient(135deg, #FFD500, #e6a800);
+      color: var(--dark);
+      border-left: 5px solid var(--blue);
+    }
+
+    .gb--dark {
+      background: linear-gradient(135deg, #0a0a1a, #1a2a4a);
+      color: #fff;
+      border-left: 5px solid var(--yellow);
+    }
+
+    .gb--light {
+      background: #fff;
+      color: var(--text);
+      border-left: 5px solid var(--blue);
+    }
+
+    .gb--teal {
+      background: linear-gradient(135deg, #007a7a, #005555);
+      color: #fff;
+      border-left: 5px solid #aff;
+    }
+
+    .gb--green {
+      background: linear-gradient(135deg, #1a6e2e, #0f4a1f);
+      color: #fff;
+      border-left: 5px solid #aff5b4;
+    }
+
+    .gb--purple {
+      background: linear-gradient(135deg, #4a1a6e, #2a0f4a);
+      color: #fff;
+      border-left: 5px solid #c8aff5;
+    }
+
+    /* Роздільники рядів */
+    .row-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 24px 0 8px;
+      padding: 6px 12px;
+      background: #e8edf8;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* Поточний брейкпоінт */
+    .bp-indicator {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      background: var(--dark);
+      color: var(--yellow);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      z-index: 9998;
+      border: 1px solid var(--yellow);
+      pointer-events: none;
+    }
+
+    /* Стат блок */
+    .stat-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .stat-lbl {
+      font-size: 0.78rem;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Match card */
+    .match-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.88rem;
+    }
+
+    .match-row:last-child { border-bottom: none; }
+
+    .match-score {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      color: var(--yellow);
+    }
+
+    /* Таблиця груп */
+    .group-table {
+      width: 100%;
+      font-size: 0.82rem;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .group-table th {
+      color: var(--yellow);
+      font-weight: 700;
+      padding: 4px 6px;
+      border-bottom: 1px solid rgba(255,213,0,0.3);
+      text-align: left;
+    }
+
+    .group-table td {
+      padding: 5px 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .group-table tr.highlight td {
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    /* Великий блок рядку 2 */
+    .big-block {
+      min-height: 200px;
+    }
+
+    /* Хедер сторінки */
+    .page-header {
+      background: linear-gradient(135deg, var(--blue), var(--dark));
+      color: #fff;
+      padding: 32px 0 24px;
+      margin-bottom: 0;
+    }
+
+    .page-header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      color: var(--yellow);
+      border-left: 6px solid #fff;
+      padding-left: 16px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .page-header p {
+      color: #c8d8f8;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<span id="top-anchor"></span>
+
+<!-- Індикатор брейкпоінту -->
+<div class="bp-indicator" id="bp-ind">xl</div>
+
+<!-- НАВІГАЦІЯ (Bootstrap navbar) -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background:var(--dark);border-top:3px solid var(--yellow);">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <span style="font-size:1.6rem;">🇺🇦</span>
+      <div>
+        <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:2px;color:#fff;">Збірна України</div>
+        <div style="font-size:0.7rem;color:var(--yellow);letter-spacing:3px;">Офіційний фан-сайт</div>
+      </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Головна</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="players.html" data-bs-toggle="dropdown">Гравці</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="players.html#forwards">Нападники</a></li>
+            <li><a class="dropdown-item" href="players.html#defenders">Захисники</a></li>
+            <li><a class="dropdown-item" href="players.html#goalkeepers">Воротарі</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="history.html">Історія</a></li>
+        <li class="nav-item"><a class="nav-link" href="schedule.html">Розклад</a></li>
+        <li class="nav-item"><a class="nav-link" href="interactive.html">Інтерактив</a></li>
+        <li class="nav-item"><a class="nav-link active" href="grid.html">Bootstrap Grid</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1>Bootstrap Grid — Збірна України</h1>
+    <p>Адаптивна сітка Bootstrap 5: 4 ряди з різними конфігураціями. Змініть розмір вікна для перевірки.</p>
+  </div>
+</div>
+
+<!-- ОСНОВНИЙ КОНТЕНТ -->
+<div class="container mt-4 mb-5">
+
+  <!-- ==========================================
+    РЯД 1: 2 блоки (по 6 колонок)
+    md: 2 блоки по 5 колонок
+  =========================================== -->
+  <div class="row-label">Ряд 1 — 2 блоки | md: 2×5 колонок</div>
+  <div class="row">
+
+    <!-- Блок 1.1: col-12 col-md-5 -->
+    <div class="col-12 col-md-5">
+      <div class="grid-block gb--blue">
+        <div class="grid-block__title">🇺🇦 Збірна України</div>
+        <p class="grid-block__text">Національна збірна з футболу. Засновано у 1991 році після здобуття незалежності. Кольори: жовто-сині.</p>
+        <div class="mt-2">
+          <span class="badge bg-warning text-dark me-1">Рейтинг ФІФА: ~25</span>
+          <span class="badge" style="background:var(--blue);">УЄФА</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Блок 1.2: col-12 col-md-5 offset-md-2 -->
+    <div class="col-12 col-md-5 offset-md-2">
+      <div class="grid-block gb--yellow">
+        <div class="grid-block__title">⚽ Наступний матч</div>
+        <p class="grid-block__text">Кваліфікація ЧС-2026<br>
+          <strong>🇺🇦 Україна vs Чехія 🇨🇿</strong><br>
+          НСК «Олімпійський» | 20:45
+        </p>
+        <div class="mt-2">
+          <span class="badge" style="background:var(--dark);color:var(--yellow);">Жовтень 2025</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==========================================
+    РЯД 2: 1 блок (8 кол.) + 2 малих (2+2 кол.)
+    sm: зникає 3-ій блок
+  =========================================== -->
+  <div class="row-label">Ряд 2 — Блок 8 + Блок 2 + Блок 2 | sm: зникає 3-ій</div>
+  <div class="row">
+
+    <!-- Блок 2.1: col-12 col-sm-8 -->
+    <div class="col-12 col-sm-8">
+      <div class="grid-block gb--dark big-block">
+        <div class="grid-block__title">📊 Поточна кваліфікація ЧС-2026</div>
+        <table class="group-table">
+          <thead>
+            <tr><th>#</th><th>Команда</th><th>М</th><th>О</th><th>Різн.</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>🇩🇰 Данія</td><td>4</td><td>11</td><td>+7</td></tr>
+            <tr class="highlight"><td>2</td><td>🇺🇦 Україна</td><td>4</td><td>10</td><td>+8</td></tr>
+            <tr><td>3</td><td>🇨🇿 Чехія</td><td>4</td><td>7</td><td>+2</td></tr>
+            <tr><td>4</td><td>🇷🇴 Румунія</td><td>4</td><td>5</td><td>-1</td></tr>
+            <tr><td>5</td><td>🇫🇮 Фінляндія</td><td>4</td><td>1</td><td>-16</td></tr>
+          </tbody>
+        </table>
+        <p class="grid-block__text mt-2" style="color:var(--yellow);">🔥 Україна претендує на пряму путівку!</p>
+      </div>
+    </div>
+
+    <!-- Блок 2.2: col-6 col-sm-2 -->
+    <div class="col-6 col-sm-2">
+      <div class="grid-block gb--teal">
+        <span class="stat-num">+8</span>
+        <span class="stat-lbl">Різниця голів</span>
+      </div>
+    </div>
+
+    <!-- Блок 2.3: col-6 col-sm-2 — зникає на sm -->
+    <div class="col-6 col-sm-2 d-sm-none">
+      <div class="grid-block gb--green">
+        <span class="stat-num">10</span>
+        <span class="stat-lbl">Очок</span>
+      </div>
+    </div>
+    <!-- Блок 2.3 visible on sm+ -->
+    <div class="col-sm-2 d-none d-sm-block">
+      <div class="grid-block gb--green">
+        <span class="stat-num">10</span>
+        <span class="stat-lbl">Очок</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==========================================
+    РЯД 3: 1 блок (весь рядок)
+    xs: міняється місцями з рядом 4 (order)
+  =========================================== -->
+  <div class="row-label">Ряд 3 — 1 блок (весь рядок) | xs: міняється з Рядом 4</div>
+  <div class="row">
+    <div class="col-12 order-3 order-sm-0">
+      <div class="grid-block gb--blue">
+        <div class="grid-block__title">🏆 Досягнення збірної</div>
+        <div class="row mt-2">
+          <div class="col-6 col-md-3 mb-2">
+            <div style="background:rgba(255,255,255,0.1);border-radius:6px;padding:10px;text-align:center;">
+              <span style="font-size:1.6rem;display:block;">⭐</span>
+              <span style="font-size:0.8rem;color:var(--yellow);">ЧС 2006<br>Чвертьфінал</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 mb-2">
+            <div style="background:rgba(255,255,255,0.1);border-radius:6px;padding:10px;text-align:center;">
+              <span style="font-size:1.6rem;display:block;">🥇</span>
+              <span style="font-size:0.8rem;color:var(--yellow);">Олімпіада<br>2004</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 mb-2">
+            <div style="background:rgba(255,255,255,0.1);border-radius:6px;padding:10px;text-align:center;">
+              <span style="font-size:1.6rem;display:block;">🏟️</span>
+              <span style="font-size:0.8rem;color:var(--yellow);">Євро 2012<br>Господар</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 mb-2">
+            <div style="background:rgba(255,255,255,0.1);border-radius:6px;padding:10px;text-align:center;">
+              <span style="font-size:1.6rem;display:block;">🏆</span>
+              <span style="font-size:0.8rem;color:var(--yellow);">ЧС U-20<br>2019</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+    РЯД 4: 1 блок
+    xs: міняється місцями з рядом 2
+  =========================================== -->
+  <div class="row-label">Ряд 4 — 1 блок | xs: міняється з Рядом 3</div>
+  <div class="row">
+    <div class="col-12 order-2 order-sm-0">
+      <div class="grid-block gb--dark">
+        <div class="grid-block__title">📅 Розклад найближчих матчів</div>
+        <div class="row mt-2">
+          <div class="col-12 col-md-4 mb-2">
+            <div class="match-row">
+              <span>🇺🇦 Україна</span>
+              <span class="match-score">vs</span>
+              <span>🇨🇿 Чехія</span>
+            </div>
+            <div style="font-size:0.78rem;color:#aac0e8;margin-top:3px;">Жовтень 2025 | Київ</div>
+          </div>
+          <div class="col-12 col-md-4 mb-2">
+            <div class="match-row">
+              <span>🇷🇴 Румунія</span>
+              <span class="match-score">vs</span>
+              <span>🇺🇦 Україна</span>
+            </div>
+            <div style="font-size:0.78rem;color:#aac0e8;margin-top:3px;">Листопад 2025 | Виїзд</div>
+          </div>
+          <div class="col-12 col-md-4 mb-2">
+            <div class="match-row">
+              <span>🇺🇦 Україна</span>
+              <span class="match-score">vs</span>
+              <span>🇩🇰 Данія</span>
+            </div>
+            <div style="font-size:0.78rem;color:#aac0e8;margin-top:3px;">Березень 2026 | Київ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Примітка про адаптивність -->
+  <div class="alert mt-3" style="background:var(--yellow);color:var(--dark);border:none;border-radius:10px;">
+    <strong>📐 Адаптивна сітка Bootstrap 5:</strong>
+    <ul class="mb-0 mt-1" style="font-size:0.9rem;">
+      <li><strong>xl (1200px+):</strong> Ряд 1 — 2 блоки по 6; Ряд 2 — 8+2+2; Ряди 3 і 4 — повний рядок</li>
+      <li><strong>md (&lt;900px):</strong> Ряд 1 — 2 блоки по 5 колонок (col-md-5)</li>
+      <li><strong>sm (&lt;700px):</strong> Ряд 2 — зникає 3-ій блок (d-sm-none)</li>
+      <li><strong>xs (&lt;480px):</strong> Блоки рядів 3 і 4 міняються місцями (order-2/order-3)</li>
+    </ul>
+  </div>
+
+  <p class="text-center mt-3">
+    <a href="#top-anchor">↑ Вгору</a> &nbsp;|&nbsp;
+    <a href="index.html">← На головну</a>
+    &nbsp;|&nbsp;
+    <a href="schedule.html">Розклад →</a>
+  </p>
+</div>
+
+<!-- Fixed flag -->
+<a href="#top-anchor" class="fixed-flag" title="Вгору">🇺🇦</a>
+
+<footer class="footer">
+  <div class="footer__main">
+    <div class="footer__col">
+      <h4 class="footer__col-title">🇺🇦 Збірна України</h4>
+      <p style="font-size:0.88rem;">Офіційний фан-сайт збірної України.</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Навігація</h4>
+      <ul class="footer__list">
+        <li class="footer__list-item"><a href="index.html" class="footer__list-link">Головна</a></li>
+        <li class="footer__list-item"><a href="players.html" class="footer__list-link">Гравці</a></li>
+        <li class="footer__list-item"><a href="history.html" class="footer__list-link">Історія</a></li>
+        <li class="footer__list-item"><a href="grid.html" class="footer__list-link">Bootstrap Grid</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Ресурси</h4>
+      <ul class="footer__list">
+        <li class="footer__list-item"><a href="https://ffu.ua" target="_blank" class="footer__list-link">ФФУ</a></li>
+        <li class="footer__list-item"><a href="https://www.uefa.com" target="_blank" class="footer__list-link">UEFA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    &copy; 2024 <span class="footer__copy-highlight">Збірна України — Офіційний фан-сайт</span>. Слава Україні! 🇺🇦
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Показуємо поточний брейкпоінт Bootstrap
+  function updateBP() {
+    var w = window.innerWidth;
+    var el = document.getElementById('bp-ind');
+    if (!el) return;
+    if (w < 480) el.textContent = 'xs (' + w + 'px)';
+    else if (w < 576) el.textContent = 'sm (' + w + 'px)';
+    else if (w < 768) el.textContent = 'sm (' + w + 'px)';
+    else if (w < 992) el.textContent = 'md (' + w + 'px)';
+    else if (w < 1200) el.textContent = 'lg (' + w + 'px)';
+    else el.textContent = 'xl (' + w + 'px)';
+  }
+  updateBP();
+  window.addEventListener('resize', updateBP);
+</script>
+</body>
+</html>

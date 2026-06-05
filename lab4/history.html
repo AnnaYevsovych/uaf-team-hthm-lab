@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Історія збірної України з футболу — від заснування до сучасності.">
+  <meta name="keywords" content="історія збірної України, ЧС 2006, Євро, Шевченко, досягнення">
+  <meta name="author" content="Фан-клуб збірної України">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#005BBB">
+  <meta property="og:title" content="Історія збірної України">
+  <meta property="og:description" content="Хронологія виступів збірної України, тренери та найкращі результати.">
+  <meta property="og:type" content="website">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Історія — Збірна України</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .timeline {
+      position: relative;
+      padding-left: 36px;
+      margin: 20px 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--blue), var(--yellow));
+      border-radius: 3px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+      padding: 16px 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,91,187,0.1);
+      border-left: 3px solid var(--blue);
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 18px;
+      width: 14px;
+      height: 14px;
+      background: var(--yellow);
+      border: 3px solid var(--blue);
+      border-radius: 50%;
+    }
+    .timeline-year {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .coach-card {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: #f0f4ff;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      border-left: 4px solid var(--yellow);
+      align-items: center;
+    }
+    .coach-avatar {
+      width: 56px;
+      height: 56px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .coach-info strong {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      color: var(--dark);
+      display: block;
+      margin-bottom: 3px;
+    }
+    .coach-info span {
+      font-size: 0.83rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<span id="top-anchor"></span>
+
+<header class="header">
+  <div class="header__top">
+    <a href="index.html" class="header__logo">
+      <div class="header__logo-img" style="display:flex;align-items:center;justify-content:center;font-size:2rem;">🇺🇦</div>
+      <div>
+        <div class="header__title">Збірна України</div>
+        <div class="header__subtitle">Офіційний фан-сайт</div>
+      </div>
+    </a>
+    <div style="color:var(--yellow);font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:2px;">
+      ⚽ СЛАВА УКРАЇНІ!
+    </div>
+  </div>
+  <nav class="nav">
+    <ul class="nav__list">
+      <li class="nav__item">
+        <a href="index.html" class="nav__link">Головна</a>
+      </li>
+      <li class="nav__item">
+        <a href="players.html" class="nav__link">Гравці ▾</a>
+        <ul class="nav__dropdown">
+          <li><a href="players.html#forwards" class="nav__dropdown-link">Нападники</a></li>
+          <li><a href="players.html#midfielders" class="nav__dropdown-link">Півзахисники</a></li>
+          <li><a href="players.html#defenders" class="nav__dropdown-link">Захисники</a></li>
+          <li><a href="players.html#goalkeepers" class="nav__dropdown-link">Воротарі</a></li>
+        </ul>
+      </li>
+      <li class="nav__item">
+        <a href="history.html" class="nav__link nav__link--active">Історія ▾</a>
+        <ul class="nav__dropdown">
+          <li><a href="#achievements-section" class="nav__dropdown-link">Досягнення</a></li>
+          <li><a href="#history-section" class="nav__dropdown-link">Хронологія</a></li>
+          <li><a href="#coaches-section" class="nav__dropdown-link">Тренери</a></li>
+        </ul>
+      </li>
+      <li class="nav__item">
+        <a href="index.html#contact-section" class="nav__link">Контакти</a>
+      </li>
+      <li class="nav__item">
+        <a href="grid.html" class="nav__link">Bootstrap</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html" class="breadcrumb__link">🏠 Головна</a>
+    <span class="breadcrumb__sep">›</span>
+    <strong>Історія</strong>
+  </div>
+
+  <div class="page-layout">
+    <main class="main-content">
+
+      <section class="hero">
+        <h1>Історія збірної України</h1>
+        <p>З 1991 року наша збірна творить власну спортивну легенду. Від перших кроків на міжнародній арені до чвертьфіналу чемпіонату світу — це шлях наполегливості та патріотизму.</p>
+      </section>
+
+      <!-- ДОСЯГНЕННЯ -->
+      <article id="achievements-section">
+        <h2>🏆 Головні досягнення</h2>
+        <section>
+          <p>За більш ніж <strong>30 років</strong> існування збірна України досягла чималих успіхів на міжнародній арені:</p>
+
+          <div class="achievements-list">
+            <div class="achievement-item">
+              <span class="year">2006</span>
+              <div>
+                <strong>Чвертьфінал Чемпіонату Світу</strong>
+                <p style="margin:0;font-size:0.85rem;color:#666;">Найкращий результат збірної в історії. Перемоги над Тунісом, Саудівською Аравією та Швейцарією.</p>
+              </div>
+            </div>
+            <div class="achievement-item">
+              <span class="year">2004</span>
+              <div>
+                <strong>🥇 Золото Олімпіади (U-23)</strong>
+                <p style="margin:0;font-size:0.85rem;color:#666;">Олімпійська збірна виграла золото Олімпійських ігор в Афінах.</p>
+              </div>
+            </div>
+            <div class="achievement-item">
+              <span class="year">2012</span>
+              <div>
+                <strong>Євро-2012 (спільне проведення)</strong>
+                <p style="margin:0;font-size:0.85rem;color:#666;">Україна та Польща спільно прийняли чемпіонат Європи.</p>
+              </div>
+            </div>
+            <div class="achievement-item">
+              <span class="year">2020</span>
+              <div>
+                <strong>1/8 фіналу Євро-2020</strong>
+                <p style="margin:0;font-size:0.85rem;color:#666;">Впевнений виступ на Євро, вихід у плей-оф.</p>
+              </div>
+            </div>
+            <div class="achievement-item">
+              <span class="year">2021</span>
+              <div>
+                <strong>Золото ЧС U-20</strong>
+                <p style="margin:0;font-size:0.85rem;color:#666;">Молодіжна збірна здобула золото чемпіонату світу.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Таблиця участі в чемпіонатах -->
+          <h3 style="margin-top:28px;">Участь у великих турнірах</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Турнір</th>
+                <th>Рік</th>
+                <th>Результат</th>
+                <th>Тренер</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Чемпіонат Світу</td>
+                <td>2006</td>
+                <td><span class="badge badge--yellow">Чвертьфінал</span></td>
+                <td>О. Блохін</td>
+              </tr>
+              <tr>
+                <td>Євро</td>
+                <td>2012</td>
+                <td>Груповий етап</td>
+                <td>О. Блохін</td>
+              </tr>
+              <tr>
+                <td>Євро</td>
+                <td>2016</td>
+                <td>Груповий етап</td>
+                <td>М. Фоменко</td>
+              </tr>
+              <tr>
+                <td>Євро</td>
+                <td>2020</td>
+                <td><span class="badge">1/8 фіналу</span></td>
+                <td>А. Шевченко</td>
+              </tr>
+              <tr>
+                <td>Ліга Націй</td>
+                <td>2023</td>
+                <td>Ліга B, Група 1</td>
+                <td>С. Ребров</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+
+      <!-- ХРОНОЛОГІЯ -->
+      <article id="history-section">
+        <h2>📅 Хронологія збірної</h2>
+        <section>
+          <p>Ключові дати та події в <em>30-річній</em> <strong>历史збірної України</strong>:</p>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">1992</div>
+              <strong>Перший офіційний матч</strong>
+              <p>29 квітня 1992 року збірна України зіграла перший офіційний матч проти збірної Угорщини у Будапешті. Рахунок — 1:3.</p>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">1993</div>
+              <strong>Перша перемога</strong>
+              <p>Збірна здобула першу перемогу в офіційних матчах. Виступ у відборі до ЧС-1994.</p>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">1999</div>
+              <strong>Перший великий турнір</strong>
+              <p>Участь у відборі до Євро-2000, де Україна дійшла до стикових матчів (плей-оф) з Словенією.</p>
+            </div>
+
+            <div class="timeline-item" style="border-left-color:var(--yellow);">
+              <div class="timeline-year">2006 🏆</div>
+              <strong>Зоряний час — ЧС у Німеччині</strong>
+              <p>
+                Найкращий результат в історії збірної. Перемоги над <strong>Тунісом (1:0)</strong>, <strong>Саудівською Аравією (4:0)</strong>, вихід з групи, перемога над Швейцарією в 1/8 (3:0 по пенальті). Поразка від Італії в чвертьфіналі (0:3).
+              </p>
+              <ul class="marked-list" style="margin-top:8px;">
+                <li>Тренер: <strong>Олег Блохін</strong></li>
+                <li>Найкращий бомбардир: <strong>Андрій Шевченко (2 голи)</strong></li>
+                <li>Капітан: Андрій Шевченко</li>
+              </ul>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">2012</div>
+              <strong>Євро-2012 на рідних полях</strong>
+              <p>Польща та Україна стали спільними господарями чемпіонату Європи. Збірна не вийшла з групи, але атмосфера була незабутньою.</p>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">2016</div>
+              <strong>Євро-2016 у Франції</strong>
+              <p>Черговий груповий етап. Поразки від Німеччини (0:2) та Польщі (0:1), нічия з Північною Ірландією.</p>
+            </div>
+
+            <div class="timeline-item" style="border-left-color:#28a745;">
+              <div class="timeline-year">2021 ⭐</div>
+              <strong>Євро-2020 та ЧС U-20</strong>
+              <p>
+                Основна збірна вийшла в 1/8 фіналу Євро. Молодіжна збірна <span class="text-highlight">виграла ЧС-2021 серед молоді</span> в Польщі!
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- ТРЕНЕРИ -->
+      <article id="coaches-section">
+        <h2>👔 Головні тренери</h2>
+        <section>
+          <p>За роки існування збірної команду очолювали видатні тренери, кожен з яких залишив свій слід в <em>українському футболі</em>:</p>
+
+          <div class="coach-card">
+            <div class="coach-avatar">🏆</div>
+            <div class="coach-info">
+              <strong>Олег Блохін</strong>
+              <span>1992–1994 | 2003–2007</span>
+              <p style="margin-top:4px;font-size:0.88rem;">Легенда українського футболу. Вивів збірну до чвертьфіналу ЧС-2006. Переможець «Золотого м'яча» 1975.</p>
+            </div>
+          </div>
+
+          <div class="coach-card">
+            <div class="coach-avatar">⚽</div>
+            <div class="coach-info">
+              <strong>Михайло Фоменко</strong>
+              <span>2012–2016</span>
+              <p style="margin-top:4px;font-size:0.88rem;">Вивів збірну на Євро-2016. Досвідчений тренер з великим стажем у клубному футболі.</p>
+            </div>
+          </div>
+
+          <div class="coach-card" style="border-left-color:var(--blue);">
+            <div class="coach-avatar">⭐</div>
+            <div class="coach-info">
+              <strong>Андрій Шевченко</strong>
+              <span>2016–2021</span>
+              <p style="margin-top:4px;font-size:0.88rem;">Найкращий гравець в історії збірної (111 матчів, 48 голів). Вивів команду на Євро-2020, де збірна дійшла до 1/8 фіналу.</p>
+            </div>
+          </div>
+
+          <div class="coach-card" style="border-left-color:#28a745;">
+            <div class="coach-avatar">🌟</div>
+            <div class="coach-info">
+              <strong>Сергій Ребров</strong>
+              <span>2023 — донині</span>
+              <p style="margin-top:4px;font-size:0.88lem;">Партнер Шевченка за часів гри в Динамо та збірній. Успішний тренер-практик.</p>
+            </div>
+          </div>
+
+          <!-- Таблиця тренерів -->
+          <h3 style="margin-top:24px;">Всі головні тренери</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Тренер</th>
+                <th>Роки</th>
+                <th>Матчів</th>
+                <th>Перемог</th>
+                <th>Ключова подія</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>О. Блохін (1)</td>
+                <td>1992–1994</td>
+                <td>16</td>
+                <td>6</td>
+                <td>Перші матчі</td>
+              </tr>
+              <tr>
+                <td>Й. Сабо</td>
+                <td>1994–1996</td>
+                <td>22</td>
+                <td>9</td>
+                <td>Відбір на ЧС-1998</td>
+              </tr>
+              <tr>
+                <td>В. Лобановський</td>
+                <td>2000–2002</td>
+                <td>20</td>
+                <td>11</td>
+                <td>Відбір на ЧС-2002</td>
+              </tr>
+              <tr>
+                <td>О. Блохін (2)</td>
+                <td>2003–2007</td>
+                <td>55</td>
+                <td>28</td>
+                <td><strong>ЧС-2006 (1/4)</strong></td>
+              </tr>
+              <tr>
+                <td>А. Шевченко</td>
+                <td>2016–2021</td>
+                <td>48</td>
+                <td>20</td>
+                <td>Євро-2020 (1/8)</td>
+              </tr>
+              <tr>
+                <td>С. Ребров</td>
+                <td>2023–н/д</td>
+                <td>20+</td>
+                <td>10+</td>
+                <td>Відбір ЧС-2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
+
+      <!-- ЛЕГЕНДИ -->
+      <article>
+        <h2>👑 Легенди збірної</h2>
+        <section>
+          <div class="box box--bordered">
+            <h3>Андрій Шевченко — Найкращий гравець</h3>
+            <p>
+              <strong>Андрій Шевченко</strong> — беззаперечна <span class="text-highlight">легенда</span> українського футболу. Переможець Ліги чемпіонів 2003 року у складі Мілану, <em>власник «Золотого м'яча» 2004 року</em>, найкращий бомбардир в <strong>історії збірної</strong>.
+            </p>
+            <h4>Досягнення:</h4>
+            <ol class="numbered-list">
+              <li>Золотий м'яч FIFA — 2004</li>
+              <li>
+                Переможець Ліги чемпіонів — 2003
+                <ul class="nested-list">
+                  <li>У складі Мілана</li>
+                  <li>Вирішальний удар у фіналі</li>
+                </ul>
+              </li>
+              <li>Чвертьфіналіст ЧС-2006</li>
+              <li>Рекордсмен збірної (111 матчів, 48 голів)</li>
+            </ol>
+          </div>
+
+          <div class="box box--dashed">
+            <h4>💬 Відомі цитати</h4>
+            <p style="font-style:italic;">"Коли ти виходиш у жовто-синій футболці — це не просто гра, це честь."</p>
+            <p style="text-align:right;font-size:0.85rem;color:#888;">— Андрій Шевченко</p>
+          </div>
+        </section>
+      </article>
+
+      <p style="text-align:center;margin-top:20px;">
+        <a href="#top-anchor">↑ Вверх</a> &nbsp;|&nbsp;
+        <a href="#achievements-section">Досягнення</a> &nbsp;|&nbsp;
+        <a href="players.html">← Гравці</a>
+      </p>
+
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar__block">
+        <h3>🗂️ Сторінки</h3>
+        <ul class="marked-list">
+          <li><a href="index.html">Головна</a></li>
+          <li><a href="players.html">Гравці</a></li>
+          <li><a href="history.html" style="color:var(--blue);font-weight:700;">Історія ←</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar__block" style="border-top-color:var(--yellow);">
+        <h3>📌 Швидка навігація</h3>
+        <ul class="marked-list">
+          <li><a href="#achievements-section">🏆 Досягнення</a></li>
+          <li><a href="#history-section">📅 Хронологія</a></li>
+          <li><a href="#coaches-section">👔 Тренери</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar__block">
+        <h3>📈 Рекорди збірної</h3>
+        <div class="achievements-list">
+          <div class="achievement-item">
+            <span class="year">111</span>
+            <span>Матчів — Шевченко</span>
+          </div>
+          <div class="achievement-item">
+            <span class="year">48</span>
+            <span>Голів — Шевченко</span>
+          </div>
+          <div class="achievement-item">
+            <span class="year">1992</span>
+            <span>Перший матч</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar__block">
+        <h3>🔗 Корисні посилання</h3>
+        <ul class="marked-list">
+          <li><a href="https://uk.wikipedia.org/wiki/Збірна_України_з_футболу" target="_blank" rel="noopener">Вікіпедія</a></li>
+          <li><a href="https://ffu.ua" target="_blank" rel="noopener">ФФУ офіційно</a></li>
+          <li><a href="https://www.uefa.com" target="_blank" rel="noopener">UEFA</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__main">
+    <div class="footer__col">
+      <h4>🇺🇦 Збірна України</h4>
+      <p style="font-size:0.88rem;line-height:1.6;">Офіційний фан-сайт національної збірної України з футболу.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Навігація</h4>
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="players.html">Гравці</a></li>
+        <li><a href="history.html">Історія</a></li>
+        <li><a href="index.html#contact-section">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Розділи Історії</h4>
+      <ul>
+        <li><a href="#achievements-section">Досягнення</a></li>
+        <li><a href="#history-section">Хронологія</a></li>
+        <li><a href="#coaches-section">Тренери</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    &copy; 2024 <span>Збірна України — Офіційний фан-сайт</span>. Всі права захищено. | Слава Україні! 🇺🇦
+  </div>
+</footer>
+
+<a href="#top-anchor" class="fixed-flag" title="Вгору">🇺🇦</a>
+
+<script src="script.js"></script>
+</body>
+</html>
